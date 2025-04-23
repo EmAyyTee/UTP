@@ -53,6 +53,13 @@ public class ProgLang {
         );
     }
 
+    public Map<String, List<String>> getProgsMapForNumOfLangsGreaterThan(int n){
+        return filtered(
+                progsMap,
+                e -> e.getValue().size() > n
+        );
+    }
+
     public <K, V> Map <K,V> sorted (Map<K, V> map, Comparator<Map.Entry<K, V>> comparator) {
         return map.entrySet()
                 .stream()
