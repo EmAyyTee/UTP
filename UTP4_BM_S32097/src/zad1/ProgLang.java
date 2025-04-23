@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ProgLang {
@@ -56,6 +57,18 @@ public class ProgLang {
         return map.entrySet()
                 .stream()
                 .sorted(comparator)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+    }
+
+    public <K, V> Map <K,V> filtered (Map<K, V> map, Predicate<Map.Entry<K, V>> predicate) {
+        return map.entrySet()
+                .stream()
+                .filter(predicate)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
