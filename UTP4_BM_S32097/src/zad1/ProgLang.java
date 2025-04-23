@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.*;
 import java.util.stream.Collectors;
 
 public class ProgLang {
@@ -39,6 +38,16 @@ public class ProgLang {
                 (e1, e2) -> {
                     int cmp = Integer.compare(e2.getValue().size(), e1.getValue().size());
                     return cmp !=0 ? cmp : e1.getKey().compareTo(e2.getKey());
+                }
+        );
+    }
+
+    public Map<String, List<String>> getProgsMapSortedByNumOfLangs(){
+        return sorted(
+                progsMap,
+                (e1, e2) -> {
+                    int cmp = Integer.compare(e2.getValue().size(), e1.getValue().size());
+                    return cmp != 0 ? cmp : e1.getKey().compareTo(e2.getKey());
                 }
         );
     }
