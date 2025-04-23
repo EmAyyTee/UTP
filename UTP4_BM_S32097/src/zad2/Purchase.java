@@ -49,6 +49,10 @@ public class Purchase {
     }
 
     public String toString() {
+        return String.format("%s;%s;%s;%.1f;%.1f", customerId, customerName, product, price, quantity);
+    }
+
+    public String toStringWithCost() {
         return String.format("%s (koszt: %.1f)", this.toString(), getCost());
     }
 }
