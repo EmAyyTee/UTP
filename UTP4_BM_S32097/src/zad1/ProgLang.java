@@ -1,9 +1,11 @@
 package zad1;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.*;
 import java.util.stream.Collectors;
 
 public class ProgLang {
@@ -32,7 +34,25 @@ public class ProgLang {
     }
 
     public Map<String, List<String>> getLangsMapSortedByNumOfProgs(){
-        
+        return sorted(
+                langsMap,
+                (e1, e2) -> {
+                    int cmp = Integer.compare(e2.getValue().size(), e1.getValue().size());
+                    return cmp !=0 ? cmp : e1.getKey().compareTo(e2.getKey());
+                }
+        );
+    }
+
+    public <K, V> Map <K,V> sorted (Map<K, V> map, Comparator<Map.Entry<K, V>> comparator) {
+        return map.entrySet()
+                .stream()
+                .sorted(comparator)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
     }
 
     private static <K, V> Map<K, List<V>> deepCopyMap(Map<K, List<V>> originalMap) {
