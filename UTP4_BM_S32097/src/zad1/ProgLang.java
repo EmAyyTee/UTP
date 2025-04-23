@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProgLang {
     private final Map<String, List<String>> langsMap = new LinkedHashMap<>();
@@ -20,5 +21,28 @@ public class ProgLang {
                 progsMap.computeIfAbsent(prog, k -> new ArrayList<>()).add(lang);
             }
         }
+    }
+
+    public Map<String, List<String>> getLangsMap() {
+        return deepCopyMap(langsMap);
+    }
+
+    public Map<String, List<String>> getProgsMap() {
+        return deepCopyMap(progsMap);
+    }
+
+    public Map<String, List<String>> getLangsMapSortedByNumOfProgs(){
+        
+    }
+
+    private static <K, V> Map<K, List<V>> deepCopyMap(Map<K, List<V>> originalMap) {
+        return originalMap.entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        e -> new ArrayList<>(e.getValue()),
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
     }
 }
